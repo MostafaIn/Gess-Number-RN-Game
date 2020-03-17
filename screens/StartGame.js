@@ -1,20 +1,28 @@
-import React from 'react'
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import React,{ useState } from 'react'
+import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard } from 'react-native'
 
 import Card from '../components/Card';
+import Input from '../components/Input';
 
 import Colors from '../constants/colors';
 
 const StartGame = () => {
+    const [enteredValue, setEnteredValue] = useState('')
+
+    console.log(enteredValue)
     return (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.screen}>
             <Text style={styles.title}>Start a New Game!</Text>
             <Card style={styles.container}>
                 <Text>Select a Number</Text>
-                <TextInput 
+                <Input 
                     style={styles.input} 
-                    type="number" 
-                    
+                    blurOnSubmit
+                    keyboardType="number-pad"
+                    maxLength={2}
+                    value={enteredValue}
+                    onChangeText={value => setEnteredValue(value.replace(/[^0-9]/g, ''))}
                 />
                 <View style={styles.btns}>
                     <Button style={styles.btn} title="reset" color={Colors.primary}  />
@@ -22,6 +30,7 @@ const StartGame = () => {
                 </View>
             </Card>
         </View>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -44,10 +53,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     input:{
-        width:100,
-        borderWidth:1,
-        borderColor:'#555',
-        borderRadius:10,
+        width:80,
         textAlign:'center',
         padding:5
     },
@@ -59,5 +65,5 @@ const styles = StyleSheet.create({
     },
     btn:{
         width: 90
-    }
+    },
 })
