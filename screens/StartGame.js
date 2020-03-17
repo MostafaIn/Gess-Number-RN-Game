@@ -11,6 +11,7 @@ import {
 
 import Card from '../components/Card';
 import Input from '../components/Input';
+import NumberContainer from '../components/NumberContainer';
 
 import Colors from '../constants/colors';
 
@@ -41,7 +42,13 @@ const StartGame = () => {
 
     let confirmedOutput;
     if(confirmed){
-    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>
+    confirmedOutput =(
+        <Card style={styles.summaryContainer}>
+            <Text>you selected</Text>
+            <NumberContainer>{selectedNumber}</NumberContainer>
+            <Button title="Start Game" />
+        </Card>
+    );
     }
 
     console.log(enteredValue)
@@ -86,7 +93,8 @@ const styles = StyleSheet.create({
     container:{
         width:300,
         maxWidth:'80%',
-        alignItems:'center'
+        alignItems:'center',
+        marginBottom: 20
     },
     input:{
         width:80,
@@ -102,4 +110,8 @@ const styles = StyleSheet.create({
     btn:{
         width: 90
     },
+    summaryContainer:{
+        marginTop:20,
+        alignItems:'center'
+    }
 })
