@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 
 import Card from '../components/Card';
 
+import Colors from '../constants/colors';
+
 const StartGame = () => {
     return (
         <View style={styles.screen}>
@@ -15,8 +17,8 @@ const StartGame = () => {
                     
                 />
                 <View style={styles.btns}>
-                    <Button title="reset" />
-                    <Button title="confirm" />
+                    <Button style={styles.btn} title="reset" color={Colors.primary}  />
+                    <Button style={styles.btn} title="confirm" color={Colors.accent} />
                 </View>
             </Card>
         </View>
@@ -54,5 +56,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         paddingHorizontal:15
+    },
+    btn:{
+        width: 90
     }
 })
