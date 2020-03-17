@@ -1,5 +1,13 @@
 import React,{ useState } from 'react'
-import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { 
+    StyleSheet, 
+    Text, 
+    View, 
+    Button, 
+    TouchableWithoutFeedback, 
+    Keyboard, 
+    Alert
+} from 'react-native'
 
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -8,6 +16,33 @@ import Colors from '../constants/colors';
 
 const StartGame = () => {
     const [enteredValue, setEnteredValue] = useState('')
+    const [confirmed, setConfirmed] = useState(false)
+    const [selectedNumber, setSelectedNumber] = useState('')
+
+    const resetInputHandler = () =>{
+        setEnteredValue('');
+        setConfirmed(false)
+    };
+
+    const confirmInputHandler = () =>{
+        let chosenNumber = parseInt(enteredValue);
+        if(isNaN(chosenNumber) || chosenNumber <=0 || chosenNumber > 99){
+            Alert.alert('Invalid Number!', 'number has to be between 1 and 99.',[{
+                text:'Okay',
+                style:'destructive',
+                onPress: resetInputHandler
+            }])
+            return;
+        }
+        setConfirmed(true);
+        setSelectedNumber(parseInt(chosenNumber));
+        setEnteredValue('');
+    };
+
+    let confirmedOutput;
+    if(confirmed){
+    confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>
+    }
 
     console.log(enteredValue)
     return (
@@ -25,10 +60,11 @@ const StartGame = () => {
                     onChangeText={value => setEnteredValue(value.replace(/[^0-9]/g, ''))}
                 />
                 <View style={styles.btns}>
-                    <Button style={styles.btn} title="reset" color={Colors.primary}  />
-                    <Button style={styles.btn} title="confirm" color={Colors.accent} />
+                    <Button style={styles.btn} title="reset" color={Colors.primary} onPress={resetInputHandler}  />
+                    <Button style={styles.btn} title="confirm" color={Colors.accent} onPress={confirmInputHandler} />
                 </View>
             </Card>
+            {confirmedOutput}
         </View>
         </TouchableWithoutFeedback>
     )
