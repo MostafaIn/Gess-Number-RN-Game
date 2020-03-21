@@ -1,10 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, Image } from 'react-native'
+
+import defaultStyles from '../constants/default-styles'
 
 const GameOver = ({rndNumber, usrNumber, onRestart}) => {
     return (
         <View style={styles.screen}>
-            <Text style={styles.title}>GAME OVER !!!</Text>
+            <Text style={styles.title}>GAME IS OVER !</Text>
+            <Image 
+                source={require('../assets/success.png')}
+                style={defaultStyles.img}
+                resizeMode="contain"
+            />
             <Text>Number of rounds: {rndNumber}</Text>
             <Text>Number was: {usrNumber} </Text>
             <Button title="NEW GAME" onPress={onRestart} />

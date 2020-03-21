@@ -5,5 +5,10 @@ export default StyleSheet.create({
         fontSize:18,
         fontFamily:'indieFlower-Regular',
         color:'#6e2f11'
+    },
+    img:{
+        width:'80%',
+        height:300,
+        margin:20
     }
 })
