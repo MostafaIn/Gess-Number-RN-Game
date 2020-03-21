@@ -57,7 +57,7 @@ const StartGame = ({onStartGame}) => {
         <View style={styles.screen}>
             <Text style={styles.title}>Start a New Game!</Text>
             <Card style={styles.container}>
-                <Text>Select a Number</Text>
+                <Text style={{fontFamily:'indieFlower-Regular'}}>Select a Number</Text>
                 <Input 
                     style={styles.input} 
                     blurOnSubmit
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize:18,
         marginVertical:10,
-        fontFamily: 'IndieFlower-Regular'
+        fontFamily: 'inknutAntiqua-Regular'
     },
     container:{
         width:300,
