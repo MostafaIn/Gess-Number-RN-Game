@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native'
 
 import NumberContainer from '../components/NumberContainer'
 import Card from '../components/Card'
+import MainButton from '../components/MainButton'
 
 import defaultStyles from '../constants/default-styles'
 
@@ -57,8 +58,10 @@ const GameScreen = ({userChoice, onGameOver}) => {
             <Text style={defaultStyles.txt}>Opponnet's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.btns}>
-                <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
-                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')} />
+                <MainButton onPress={nextGuessHandler.bind(this, 'lower')}>LOWER</MainButton>
+                <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>GREATER</MainButton>
+                {/* <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
+                <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')} /> */}
             </Card>
         </View>
     )

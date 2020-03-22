@@ -51,7 +51,7 @@ const fetchFonts = () =>{
    }else if( guessRounds > 0){
      content = <GameOver rndNumber={guessRounds} usrNumber={userNumber} onRestart={configureNewGameHandler} />
    }
-   console.log('font',fontLoaded);
+  //  console.log('font',fontLoaded);
   return (
     <View style={styles.container}>
       <Header title="GESS MY NUMBER" />
