@@ -25,9 +25,21 @@ const GameScreen = ({userChoice, onGameOver}) => {
         generateRandomBetween(1, 100, userChoice)
     );
     const [rounds, setRounds] = useState(0)
+    const [deviceWidth, setDeviceWidth] = useState(Dimensions.get('window').width / 4)
 
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
+
+    useEffect(() => {
+        const updateLayout = () =>{
+            setDeviceWidth(Dimensions.get('window').width / 4)
+        };
+        Dimensions.addEventListener('change', updateLayout);
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+
+        }
+    });
 
     useEffect(() => {
        if(currentGuess === userChoice){
@@ -55,20 +67,38 @@ const GameScreen = ({userChoice, onGameOver}) => {
         setCurrentGuess(nextNumber)
         setRounds(curRnd => curRnd + 1)
     };
-    return (
-        <View style={styles.screen}>
-            <Text style={defaultStyles.txt}>Opponnet's Guess</Text>
-            <NumberContainer>{currentGuess}</NumberContainer>
-            <Card style={styles.btns}>
-                <MainButton onPress={nextGuessHandler.bind(this, 'lower')}>
-                    <Ionicons name="md-remove" size={25} color="white" />
-                </MainButton>
-                <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>
-                    <Ionicons name="md-add" size={25} color="white" />
-                </MainButton>
-            </Card>
-        </View>
+
+    if(deviceWidth < 200){
+        return (
+            <View style={styles.screen}>
+                <Text style={defaultStyles.txt}>Opponnet's Guess</Text>
+                <NumberContainer>{currentGuess}</NumberContainer>
+                <Card style={styles.btns}>
+                    <MainButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <Ionicons name="md-remove" size={25} color="white" />
+                    </MainButton>
+                    <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <Ionicons name="md-add" size={25} color="white" />
+                    </MainButton>
+                </Card>
+            </View>
     )
+    }else{
+        return (
+            <View style={styles.screen}>
+                <Text style={defaultStyles.txt}>Opponnet's Guess</Text>
+                <Card style={styles.btns}>
+                    <MainButton onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <Ionicons name="md-remove" size={25} color="white" />
+                    </MainButton>
+                    <NumberContainer>{currentGuess}</NumberContainer>
+                    <MainButton onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <Ionicons name="md-add" size={25} color="white" />
+                    </MainButton>
+                </Card>
+            </View>
+        )
+    }
 }
 
 export default GameScreen

@@ -1,4 +1,4 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import { 
     StyleSheet, 
     Text, 
@@ -7,6 +7,8 @@ import {
     TouchableWithoutFeedback, 
     Keyboard, 
     Alert,
+    ScrollView,
+    KeyboardAvoidingView,
     Dimensions
 } from 'react-native'
 
@@ -23,7 +25,19 @@ const StartGame = ({onStartGame}) => {
     const [enteredValue, setEnteredValue] = useState('')
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState('')
+    const [buttonWidth, setButtonWidth] = useState(Dimensions.get('window').width / 4)
 
+    useEffect(() => {
+        const updateLayout = () =>{
+            setButtonWidth(Dimensions.get('window').width / 4)
+        }
+        Dimensions.addEventListener('change', updateLayout);
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+
+        }
+    });
+    
     const resetInputHandler = () =>{
         setEnteredValue('');
         setConfirmed(false)
@@ -60,6 +74,8 @@ const StartGame = ({onStartGame}) => {
 
     console.log(enteredValue)
     return (
+        <ScrollView>
+        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={40} >
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.screen}>
             <TitleText style={styles.title}>Start a New Game!</TitleText>
@@ -74,13 +90,15 @@ const StartGame = ({onStartGame}) => {
                     onChangeText={value => setEnteredValue(value.replace(/[^0-9]/g, ''))}
                 />
                 <View style={styles.btns}>
-                    <Button style={styles.btn} title="reset" color={Colors.primary} onPress={resetInputHandler}  />
-                    <Button style={styles.btn} title="confirm" color={Colors.accent} onPress={confirmInputHandler} />
+                    <Button style={{width: buttonWidth}} title="reset" color={Colors.primary} onPress={resetInputHandler}  />
+                    <Button style={{width: buttonWidth}}title="confirm" color={Colors.accent} onPress={confirmInputHandler} />
                 </View>
             </Card>
             {confirmedOutput}
         </View>
         </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
@@ -110,10 +128,10 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         paddingHorizontal:15
     },
-    btn:{
-        // width: 90,
-        width: Dimensions.get('window').width / 4
-    },
+    // btn:{
+    //     // width: 90,
+    //     width: Dimensions.get('window').width / 4
+    // },
     summaryContainer:{
         marginTop:20,
         alignItems:'center'

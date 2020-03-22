@@ -7,8 +7,8 @@ export default StyleSheet.create({
         color:'#6e2f11'
     },
     img:{
-        width:'80%',
-        height:300,
+        width:'60%',
+        height:200,
         margin:20
     }
 })
