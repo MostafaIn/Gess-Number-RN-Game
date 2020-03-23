@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button, Alert, Dimensions } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons'
 
+import { ScreenOrientation } from 'expo'
+
 import NumberContainer from '../components/NumberContainer'
 import Card from '../components/Card'
 import MainButton from '../components/MainButton'
@@ -21,6 +23,9 @@ const generateRandomBetween = (min, max, exclude) =>{
 };
 
 const GameScreen = ({userChoice, onGameOver}) => {
+
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    
     const [currentGuess, setCurrentGuess] = useState(
         generateRandomBetween(1, 100, userChoice)
     );
