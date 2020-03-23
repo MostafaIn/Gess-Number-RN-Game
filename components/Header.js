@@ -1,12 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View, Platform } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, Platform, Dimensions } from 'react-native'
 
 import TitleText from './TitleText'
 import Colors from '../constants/colors'
 
 const Header = ({title}) => {
+    const [headerWidth, setHeaderWidth] = useState(Dimensions.get('window').width / 4)
+
+    useEffect(() => {
+        const updateLayout = () =>{
+            setHeaderWidth(Dimensions.get('window').width / 4)
+        }
+        Dimensions.addEventListener('change', updateLayout);
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    });
+console.log('w', headerWidth)
     return (
-        <View style={{...styles.headerBase, ...Platform.select({
+        <View style={{backgroundColor: headerWidth < 200 ? Colors.primary : 'white', ...styles.headerBase, ...Platform.select({
             ios: styles.headerIos,
             andriod: styles.headerAndriod
         })}}>
@@ -26,7 +38,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     headerIos:{
-        backgroundColor:Colors.primary,
+        // backgroundColor: Colors.primary,
         borderBottomWidth: 2
     },
     headerAndriod:{

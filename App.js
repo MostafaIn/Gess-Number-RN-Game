@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
@@ -53,10 +53,10 @@ const fetchFonts = () =>{
    }
   //  console.log('font',fontLoaded);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header title="GESS MY NUMBER" />
       { content }
-    </View>
+    </SafeAreaView>
   );
 }
 export default App;
