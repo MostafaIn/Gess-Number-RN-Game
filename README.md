@@ -2,7 +2,7 @@
 #### React Native App
 
 ## DEMO
-![DEMO](Screen_Recording.gif)
+![DEMO](Screen-Recording.gif)
 
 ## Technologies are used in this App:
  - JavaScript
